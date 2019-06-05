@@ -456,7 +456,7 @@ status_update_tickBar()
 	
 	-- call button function with value passed: buttons.HOVER
 	if not movement and not toolTipActive then   -- and currentIcon
-		showToolTip()
+	--	showToolTip()
 	end
 --end</script>
 				<command></command>
