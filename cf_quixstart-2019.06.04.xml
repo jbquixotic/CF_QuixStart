@@ -1,0 +1,2022 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE MudletPackage>
+<MudletPackage version="1.001">
+	<TriggerPackage>
+		<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+			<name>Carrionfields Quix-Start 2019.5.29</name>
+			<script></script>
+			<triggerType>0</triggerType>
+			<conditonLineDelta>0</conditonLineDelta>
+			<mStayOpen>0</mStayOpen>
+			<mCommand></mCommand>
+			<packageName></packageName>
+			<mFgColor>#ff0000</mFgColor>
+			<mBgColor>#ffff00</mBgColor>
+			<mSoundFile></mSoundFile>
+			<colorTriggerFgColor>#000000</colorTriggerFgColor>
+			<colorTriggerBgColor>#000000</colorTriggerBgColor>
+			<regexCodeList />
+			<regexCodePropertyList />
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Prompts</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>0</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Prompt--&gt; StatusBar</name>
+					<script>
+-- theoretical example
+--  current_health, max_health = tonumber(matches[2]), tonumber(matches[3])
+pc.curhp, pc.curmana, pc.curmoves = 
+  tonumber(matches[3]), tonumber(matches[4]), tonumber(matches[5])
+
+
+thistime = string.right(matches[1], 5)
+
+if lasttime ~= thistime then
+		echo ('\n**** hour ****\n')
+		lasttime = thistime
+		fUpdateTime(thistime)
+		status_update_tickBar(tickCD.count)
+		end
+
+
+	status_bar_update(hpbar, pc.curhp, pc.maxhp)
+		status_bar_update(manabar, pc.curmana, pc.maxmana)
+		status_bar_update(movesbar, pc.curmoves, pc.maxmoves)
+
+raiseEvent ("onPromptQueue")
+
+
+
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>EXAMPLE: civilized &lt;100%hp 100%m 100%mv 1800tnl (50.00%) 3 PM&gt;</string>
+						<string>\w+ &lt;\d+%hp \d+%m \d+%mv \d+tnl \(\d+\.\d+%\) \d+ (\w+)&gt;</string>
+						<string>EXAMPLE:wilderness  &lt;1032hp 688m 986mv 26000tnl (-24.40%) 4 AM&gt;</string>
+						<string>(\w+).+ \&lt;(\d+)hp (\d+)m (\d+)mv (\d+)tnl \((\d+)\.(\d+)%\) (\d+).+(AM|PM)\&gt;</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>1</integer>
+						<integer>2</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+				</Trigger>
+				<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="yes" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Prompt regex constructor</name>
+					<script>--prompt ?
+--Your current prompt is:
+--%W &lt;%hhp %mm %vmv %Xtnl (%P) %T&gt;
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>2</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>Your current prompt is:</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Prompt Regex</name>
+						<script>local s = matches[1]
+if s == 'Your current prompt is:' then 
+	--deleteLine()
+else
+	s = string.trim(s)
+	--echo('\ntrimmed: '..s)
+	local parsed = getRegex(s)
+	echo ('\nPrompt to Perl RegEx: '..parsed)
+	echo('\n *Note: Copy this prompt into the trigger" Prompt-&gt;StatusBar" pattern and set \n')
+	echo('the dropdown to "perl regex".\n\n')
+	echo('If this pattern does not fire the trigger, a common problem\n')
+	echo('lies in the blank spaces, which may vary in number due to formatting.\n')
+	echo('Try replacing suspect blank spaces with .+\n')
+	
+end
+--Your current prompt is:
+--%W &lt;%hhp %mm %vmv %Xtnl (%P) %T&gt;
+--help prompt
+--   Variables allowed within  are:
+--   %h Current hit points        %H Max hit points
+--   %m Current mana              %M Max mana
+--   %v Current movement          %V Max movement
+--   %e % of hit points           %f % of mana
+--   %g % of movement             %P Level Progress (25.33%)
+--   %x Current experience        %X Experience to next level
+--   %t System time               %T Game time (8 AM)
+--   %a Current age               %A Current hours
+--   %n Phase of the moon         %I Indoor/Outdoor
+--   %W Wilderness/Civilized      %p Position
+--   %d Drunk/Tipsy/Sober         %w Weather
+--   %- CR+LF
+
+--The default prompt is: %W &lt;%hhp %mm %vmv %Xtnl (%P)&gt; 
+--Which shows up as:     civilized &lt;100%hp 100%m 100%mv 1750tnl (50.00%)&gt;
+--</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>(.+)</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</TriggerGroup>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>Score--&gt;Statusbar</name>
+					<script>
+--	score
+--	Isthrela the Legend of the Battlefield
+--	-------------------------------------------------------------------------------
+--	Level    : 51           Sex      : female       Race     : dark-elf    
+--	Ethos    : Chaotic      Align    : Evil         Class    : warrior     
+--	Practices: 20           Trains   : 1            Hometown : Jade Mountains
+--	Exp      : 562743       To Level : 20557        Sphere   : Peace
+--	Age      : mature, 252 years old (197 hours)
+--	Hit Point: 588  /1015   Mana     : 631  /631    Move     : 981  /981  
+--	Str      : 18(18+9)     Int      : 22(24+1)     Wis      : 20(21+3)
+--	Dex      : 24(24+1)     Con      : 14(16+1)     Chr      : 16(14)  
+--	Carry #  :  37/39       Weight   : 228 lb 1 oz (Max 327 lbs)
+--	Gold     : 0            Silver   : 0            Copper   : 0           
+--	Wimpy    :  350 hp      Morale   : Moderate     Position : Sleeping
+--	Hitroll  : 19           Damroll  : 46          
+--	AC pierce : -80   Superbly armored      AC bash   : -52   Heavily armored       
+--	AC slash  : -80   Superbly armored      AC magic  : -38   Very well armored     
+--	AC element: -85   Superbly armored      
+--	vs Spell    : -13  Somewhat protected  vs Paralysis: -11  Somewhat protected  
+--	vs Breath   : -12  Somewhat protected  vs Mental   : 0    Not protected       
+-------------------------------------------------------------------------------
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>0</conditonLineDelta>
+					<mStayOpen>10</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>-------------------------------------------------------------------------------</string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>SCORE hp-mana-move</name>
+						<script>echo('prompt detected\n')
+pc.curhp=tonumber(matches[2])
+pc.curmana=tonumber(matches[4])
+pc.curmoves=tonumber(matches[6])
+pc.maxhp=tonumber(matches[3])
+pc.maxmana =tonumber(matches[5])
+pc.maxmoves= tonumber(matches[7])
+
+
+hpbar:setValue(pc.curhp,pc.maxhp, "&lt;b&gt;HP&lt;/b&gt;")
+manabar:setValue(pc.curmana,pc.maxmana, "&lt;b&gt;M&lt;/b&gt;")
+movesbar:setValue(pc.curmoves,pc.maxmoves, "&lt;b&gt;MV&lt;/b&gt;")
+		
+
+
+--	score
+--	Isthrela the Legend of the Battlefield
+--	-------------------------------------------------------------------------------
+--	Level    : 51           Sex      : female       Race     : dark-elf    
+--	Ethos    : Chaotic      Align    : Evil         Class    : warrior     
+--	Practices: 20           Trains   : 1            Hometown : Jade Mountains
+--	Exp      : 562743       To Level : 20557        Sphere   : Peace
+--	Age      : mature, 252 years old (197 hours)
+--	Hit Point: 588  /1015   Mana     : 631  /631    Move     : 981  /981  
+--	Str      : 18(18+9)     Int      : 22(24+1)     Wis      : 20(21+3)
+--	Dex      : 24(24+1)     Con      : 14(16+1)     Chr      : 16(14)  
+--	Carry #  :  37/39       Weight   : 228 lb 1 oz (Max 327 lbs)
+--	Gold     : 0            Silver   : 0            Copper   : 0           
+--	Wimpy    :  350 hp      Morale   : Moderate     Position : Sleeping
+--	Hitroll  : 19           Damroll  : 46          
+--	AC pierce : -80   Superbly armored      AC bash   : -52   Heavily armored       
+--	AC slash  : -80   Superbly armored      AC magic  : -38   Very well armored     
+--	AC element: -85   Superbly armored      
+--	vs Spell    : -13  Somewhat protected  vs Paralysis: -11  Somewhat protected  
+--	vs Breath   : -12  Somewhat protected  vs Mental   : 0    Not protected       
+-------------------------------------------------------------------------------</script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>0</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>Hit Point: (\d+).+/(\d+).+Mana.+: (\d+).+/(\d+).+Move.+: (\d+).+/(\d+)</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+			</TriggerGroup>
+			<TriggerGroup isActive="yes" isFolder="yes" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+				<name>Communications</name>
+				<script></script>
+				<triggerType>0</triggerType>
+				<conditonLineDelta>99</conditonLineDelta>
+				<mStayOpen>0</mStayOpen>
+				<mCommand></mCommand>
+				<packageName></packageName>
+				<mFgColor>#ff0000</mFgColor>
+				<mBgColor>#ffff00</mBgColor>
+				<mSoundFile></mSoundFile>
+				<colorTriggerFgColor>#000000</colorTriggerFgColor>
+				<colorTriggerBgColor>#000000</colorTriggerBgColor>
+				<regexCodeList />
+				<regexCodePropertyList />
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>All</name>
+					<script>
+--enableTrigger("prompt trigger")
+selectString(line,1)
+copy()
+
+appendBuffer("Comm.displayall") -- fill with chatmychannel
+--appendBuffer("displayall") -- fill with chatmychannel
+
+--Comm.displayall:echo('from trigger\n')
+
+
+--new_text("displayAll", "displayAll")-- fill with chatmychannel, and buttonmychannel
+--^(([a-zA-Z ,'^_-]+) (?:scream|mutter|chant|sing|whine|whisper|snarl|say)s?[a-zA-Z ,'-]*, ".+")$
+
+</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>3</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string> say | whine | shout | yell | sing | music | mutter | whisper </string>
+						<string>tells you</string>
+						<string>You tell</string>
+						<string>^\(Party\): (.*)</string>
+						<string>\[.+\] (.+): (.+)</string>
+						<string>says | whines | shouts | yells | sings | musics | mutters | whispers </string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>1</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+						<integer>1</integer>
+					</regexCodePropertyList>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Local</name>
+						<script>selectString(line,1)
+copy()
+
+appendBuffer("Comm.displayloc") </script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>3</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string> say | whine | shout | yell | sing | music | mutter | whisper </string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Cabal &amp; Newbie</name>
+						<script>selectString(line,1)
+copy()
+
+appendBuffer("Comm.displaycb") </script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>3</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>\[.+\] (.+): (.+)</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>1</integer>
+						</regexCodePropertyList>
+					</Trigger>
+					<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+						<name>Tells/Group</name>
+						<script>selectString(line,1)
+copy()
+
+appendBuffer("Comm.displaytell") </script>
+						<triggerType>0</triggerType>
+						<conditonLineDelta>3</conditonLineDelta>
+						<mStayOpen>0</mStayOpen>
+						<mCommand></mCommand>
+						<packageName></packageName>
+						<mFgColor>#ff0000</mFgColor>
+						<mBgColor>#ffff00</mBgColor>
+						<mSoundFile></mSoundFile>
+						<colorTriggerFgColor>#000000</colorTriggerFgColor>
+						<colorTriggerBgColor>#000000</colorTriggerBgColor>
+						<regexCodeList>
+							<string>tells you</string>
+							<string>You tell</string>
+							<string>^\(Party\): (.*)</string>
+						</regexCodeList>
+						<regexCodePropertyList>
+							<integer>0</integer>
+							<integer>0</integer>
+							<integer>0</integer>
+						</regexCodePropertyList>
+					</Trigger>
+				</Trigger>
+				<Trigger isActive="yes" isFolder="no" isTempTrigger="no" isMultiline="no" isPerlSlashGOption="no" isColorizerTrigger="no" isFilterTrigger="no" isSoundTrigger="no" isColorTrigger="no" isColorTriggerFg="no" isColorTriggerBg="no">
+					<name>prompt trigger</name>
+					<script>selectString(line,1)
+deleteLine()
+--^(([a-zA-Z ,'^_-]+) &lt;(\d+)\%hp (\d+)%m (\d+)\%mv (\d+)tnl \(\d+)\%\) (\d+) ([a-zA-Z ,'^_-]+)&gt;
+disableTrigger("prompt trigger")</script>
+					<triggerType>0</triggerType>
+					<conditonLineDelta>99</conditonLineDelta>
+					<mStayOpen>0</mStayOpen>
+					<mCommand></mCommand>
+					<packageName></packageName>
+					<mFgColor>#ff0000</mFgColor>
+					<mBgColor>#ffff00</mBgColor>
+					<mSoundFile></mSoundFile>
+					<colorTriggerFgColor>#000000</colorTriggerFgColor>
+					<colorTriggerBgColor>#000000</colorTriggerBgColor>
+					<regexCodeList>
+						<string>(\w) \&lt;(\d)\%hp (\d)%m (\d)\%mv (\d)tnl \(\d)\%\) (\d) (\w)\&gt; </string>
+						<string>^PROTECTED (\w) \&lt;(\d)\%hp (\d)%m (\d)\%mv (\d)tnl \(\w)\) (\d) (\w)\&gt; </string>
+						<string>^{PROTECTED civilized|civilized|wilderness} (\w) \&lt;(\d)hp (\d)m (\d)\mv (\d)tnl \(\w)\) (\d) (\w)\&gt; </string>
+					</regexCodeList>
+					<regexCodePropertyList>
+						<integer>0</integer>
+						<integer>0</integer>
+						<integer>0</integer>
+					</regexCodePropertyList>
+				</Trigger>
+			</TriggerGroup>
+		</TriggerGroup>
+	</TriggerPackage>
+	<TimerPackage>
+		<TimerGroup isActive="yes" isFolder="yes" isTempTimer="no" isOffsetTimer="no">
+			<name>Carrionfields Quix-Start 2019.5.29</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<time>00:00:00.000</time>
+			<Timer isActive="yes" isFolder="no" isTempTimer="no" isOffsetTimer="no">
+				<name>timer_second</name>
+				<script>
+status_update_tickBar()
+
+
+--The code below is from Nyyrazzilyss's inspired tooltip workaround for his NyyLIB011rc1b package
+--function timer:custom()
+	local x, y = getMousePosition()
+
+	local movement=false
+	
+	if x ~= mousex or y ~= mousey then
+		-- mouse movement has occured
+		movement=true
+		
+		mousex=x
+		mousey=y
+	end
+	--echo(tostring(movement))
+	-- a tooltip is visible and mouse movement has occured
+	if toolTipActive and movement then
+			toolTip:hide()
+	end
+
+	-- if no mouse movement, inside icon, and no tooltip currently displayed: display tooltip
+	
+	-- call button function with value passed: buttons.HOVER
+	if not movement and not toolTipActive then   -- and currentIcon
+		showToolTip()
+	end
+--end</script>
+				<command></command>
+				<packageName></packageName>
+				<time>00:00:01.000</time>
+			</Timer>
+		</TimerGroup>
+	</TimerPackage>
+	<AliasPackage>
+		<AliasGroup isActive="yes" isFolder="yes">
+			<name>Carrionfields Quix-Start 2019.5.29</name>
+			<script></script>
+			<command></command>
+			<packageName></packageName>
+			<regex></regex>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Testing Aliases</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>(echoPrompt) Testing Prompt</name>
+					<script>local t = math.random(0,12)
+local h = math.random(0,723)
+local m = math.random(0,654)
+local v = math.random(0,580)
+local s = "civilized &lt;"..h.."hp "..m.."m "..v.."mv 18415tnl (1.10%) "..t.." PM&gt;" 
+--"civilized &lt;100%hp 100%m 100%mv 1475tnl (50.83%) 7 PM&gt;"
+
+s = string.gsub(s, "%$", "\n")
+feedTriggers("\n" .. s .. "\n")
+echo("\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>echoPrompt</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>`echo</name>
+					<script>local s = matches[2]
+
+s = string.gsub(s, "%$", "\n")
+feedTriggers("\n" .. s .. "\n")
+echo("\n")</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>`echo (.+)</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>testcomm (.+)</name>
+					<script>local s = matches[2]
+local time_format = "'['yyyy'/'MM'/'dd' - 'hh':'mm':'ss'.'zzz]: "
+--local time_format = "'['yyyy'/'MM'/'dd' - 'hh':'mm':'ss'.'zzz]: "
+local c = ' pickles and bananas '..getTime(true, time_format)
+
+local c_tbl = {
+	['say'] 		= "I "..s..c,
+	['whine'] 	= "I "..s..c,
+	['shout']		= "I "..s..c,
+	['yell']		= "I "..s..c,
+	['sing]']		= "I "..s..c,
+	['music']		=	"I "..s..c,
+	['mutter']	= "I "..s..c,
+	['whisper']	= "I "..s..c,
+	['says'] 		= "Bob "..s..c,
+	['whines'] 	= "Bob "..s..c,
+	['shouts']		= "Bob "..s..c,
+	['yells']		= "Bob "..s..c,
+	['sings]']		= "Bob "..s..c,
+	['musics']		=	"Bob "..s..c,
+	['mutters']	= "Bob "..s..c,
+	['whispers']	= "Bob "..s..c,
+	
+	['tell']		=	'You ' ..s..c,
+	['tells']		= 'Bob '..s..' you '..c,
+	['gt']			= 'A cowardly lion '..s..c,
+	
+	['cb']			= '[Fortress] an angry lion: '..c
+	
+	
+	
+	}
+
+
+s = string.gsub(c_tbl[s], "%$", "\n")
+feedTriggers("\n" .. s .. "\n")
+echo("\n")
+
+-- say | whine | shout | yell | sing | music | mutter | whisper 
+--tells you
+--You tell
+--\[(\w+)\] (.*): (.*)
+--\[(.*)\] (.*): (.*)
+--^\(Party\): (.*)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>testcomm (.+)</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>getdir</name>
+					<script>echo('Mudlet home directory:\n   '..getMudletHomeDir())</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>getdir</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(initHUD)  Load the Statusbar, CommBar, and Settings</name>
+					<script>expandAlias("initStatusBar")
+expandAlias("initCommBox")
+expandAlias("initSettingsBox")
+qhcf_map_init()</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^initHUD$</regex>
+					<Alias isActive="yes" isFolder="no">
+						<name>initStatusBar</name>
+						<script>status_bar_init()
+local bar_percentage_value = math.random(0,100)
+status_bar_color (hpbar, bar_percentage_value)
+status_bar_color (manabar, bar_percentage_value)
+status_bar_color (movesbar, bar_percentage_value)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>initStatusBar</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>initCommBox</name>
+						<script>comm_box_init()</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>initCommBox</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>initSettingsBox</name>
+						<script>settings_box_init()</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>initSettingsBox</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(printmap)</name>
+						<script>--clearWindow()
+--local file = getMudletHomeDir().."/QHCFmaps/Wmap.html"
+local file = getMudletHomeDir().."/QHCFmaps/WorldMap - DIKU-WIKI.html"
+cecho('&lt;gold&gt; Loading Worldmap &lt;reset&gt;\n')
+map_write(file)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^printmap$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(getmap)</name>
+						<script>-- just download a file and save it in our profile folder
+local saveto = getMudletHomeDir().."/QHCFmaps/Battlefield.html"
+local url = "http://wiki.qhcf.net/index.php?title=Battlefield"
+-- just download a file and save it in our profile folder
+display(downloadFile(saveto, url))
+cecho("&lt;white&gt;Downloading &lt;green&gt;"..url.."&lt;white&gt; to &lt;green&gt;"..saveto.."\n")
+
+
+--local file = downloaded_file(_, url)
+--echo(file)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>getmap</regex>
+					</Alias>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Targeting aliases</name>
+				<script>--  -------------------------------------------------------------
+--		This collection of aliases creates a targetting system
+--		for directing basic attacks at a known target. This is
+--		very useful for cumbersome syntax like spells, and a similar
+--		alias structure can be used for frequently used non-attack 
+--		commands.
+-----------------------------------------------------------------</script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>(tt) Set Current target</name>
+					<script>local targSt = {name='', striking='', effects='', time=''}
+
+if pc.target == nil then 
+	pc.target = {name='', striking='', effects='', time=''}
+	end
+
+if string.len(matches[2]) &gt; 2 
+	then 
+		targSt.name = matches[2]
+		targSt.name = string.gsub(targSt.name, "%s+", "")
+	
+		pc.target.name = targSt.name
+		echo('Current target set to '..pc.target.name..'\n')
+		fUpdateTargetList(targSt)
+		settings_setTarget(pc.target.name)
+  else
+		echo('Your current target is '..pc.target.name..'\n')
+	end
+
+
+echo ("-----------------------------------\n")
+echo ("kk = murder "..pc.target.name.."\n")
+echo ("bb = bash "..pc.target.name.."\n")
+echo ("jj = trip "..pc.target.name.."\n")
+echo ("ss = "..pc.special_action..' '..pc.target.name.."\n")
+echo ("-----------------------------------\n")
+
+for i,v in ipairs(targetlist)  do
+	local cur_act = targetlist[i]
+--	local w =" "
+	echo( string.format("%15s %15s  %8s  %s \n", cur_act.name, cur_act.striking,  cur_act.time, cur_act.effects))
+	end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^tt( ?(\w+)?)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(k)Kill aka Murder</name>
+					<script>send ("murder "..matches[2])</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^k (\w+)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(kk) Kill Default target</name>
+					<script>send ("murder "..pc.target.name)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^kk$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(jj)(Trip target</name>
+					<script>if string.len(matches[2]) &lt;2 then
+send('trip '..pc.target.name) else
+send('trip '..matches[2]  ) end</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^jj( ?(\w+)?)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(ss)Execute special action (ss)</name>
+					<script>-- In addition to using ss to define a user-entered action when 'ss' is typed,
+-- ss is also used for defining what special actions, such as at the
+-- end of a "dash east [do something] 
+
+if string.len(matches[2]) &lt;2 then
+   local temp = expandAlias(pc.special_action.." "..pc.target.name, true)
+	--send(temp) 
+else
+pc.special_action = matches[2] 
+settings_setSpecialAttack(pc.special_action)
+end
+
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^ss( ?(.*)?)$</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(clt)Clear Temp TargetList</name>
+					<script>targetlist=nil
+echo("...The Target_List has been emptied\n")
+display(targetlist)</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^clt$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Combat Aliases</name>
+				<script></script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>(td) throwdown</name>
+					<script>send ('throwdown')
+if Toggle.throwdown then
+	send ('get '..pc.combat_weapon1)
+	send ('get '..pc.combat_weapon2)
+end
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^td$</regex>
+				</Alias>
+			</AliasGroup>
+			<AliasGroup isActive="yes" isFolder="yes">
+				<name>Character Startup</name>
+				<script>--  -------------------------------------------------------------
+--		This collection of aliases allows character profile customization:
+--    you can save and load settings for things like current food,
+--		drinks, containers, and weapons.
+--		
+--		These settings are very useful for 
+--  -------------------------------------------------------------
+</script>
+				<command></command>
+				<packageName></packageName>
+				<regex></regex>
+				<Alias isActive="yes" isFolder="no">
+					<name>(loadPC [pcname]) Load PCdata</name>
+					<script>if (fLoadCharacter(matches[2])) then
+	send(pc.name)
+	send("bodkin4all")
+	send("\n")
+	echo (pc.name.." has been loaded successfully.")
+	display(pc)
+else
+	echo ("Unable to open " .. matches[2])
+end
+
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>loadPC (\w+)</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(savePC) Save PCdata</name>
+					<script>
+if (fSaveCharacter(pc.name)) then
+	echo (pc.name.." has been saved successfully.")
+else
+	echo ("Unable to save " .. pc.name)
+end
+</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>^savePC</regex>
+				</Alias>
+				<Alias isActive="yes" isFolder="no">
+					<name>(initPC) Initialize PC Data</name>
+					<script>pc = {
+   			name 					= "Bob",
+   			combat_weapon1 	= "sword",
+   			combat_weapon2 	= "dagger",
+   			container 			= "bag",
+   			drink_container = "waterskin",
+   			special_action 	= "trip",
+				food 						= "bread",
+				class 					= "warrior",
+				curhp						=0, 
+				curmana					=0, 
+				curmoves				=0,
+				maxhp						=30,
+				maxmana 				=30,
+				maxmoves				=30,
+				target 				= {},
+				wherelist			= {},
+	      actlist 			= {},
+				preplist			= {}
+				
+			}
+pc.target = {name="", striking="", time="", effects}
+pc.wherelist[0] = 0
+pc.actlist[0] = 0
+
+display(pc)
+AUTOREARM = 'TRUE'
+echo('Autorearm = '..AUTOREARM..'\n')
+echo('Use the command "autoarm" to toggle')</script>
+					<command></command>
+					<packageName></packageName>
+					<regex>initPC</regex>
+				</Alias>
+				<AliasGroup isActive="yes" isFolder="yes">
+					<name>PC setting Aliases</name>
+					<script></script>
+					<command></command>
+					<packageName></packageName>
+					<regex></regex>
+					<Alias isActive="yes" isFolder="no">
+						<name>(food [+]) Eat or set Default food</name>
+						<script>if (pc == nil) then 
+  initPC()
+  echo("PC has been initialized. Reset the other values") 
+end
+pc.food = matches[2]
+settings_setFood(pc.food)
+echo ("Preferred food set to ".. pc.food)
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^food (\w+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(setpc) Set pc.name</name>
+						<script>if (pc == nil) then 
+  initPC()
+  echo("PC has been initialized. Reset the other values") 
+end
+pc.name = matches[2]
+echo ("Character name set to ".. pc.name)
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^setpc (\w+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(setbag) set pc.container</name>
+						<script>if (pc == nil) then 
+  initPC()
+  echo("PC has been initialized. Reset the other values") 
+end
+pc.container = matches[2]
+echo ("Preferred container set to ".. pc.container)
+settings_setBag(pc.container)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^setbag (\w+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(setdrk [+]) set  pc.drink</name>
+						<script>if (pc == nil) then 
+  initPC()
+  echo("PC has been initialized. Reset the other values") 
+end
+pc.drink_container = matches[2]
+echo ("Preferred drink set to ".. pc.drink_container)
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^setdrk (\w+)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(ss [.+]) Execute or set special_action</name>
+						<script>pc.special_action = matches[2]
+echo ("Special action = "..pc.special_action)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^ss (.*)$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(setclass) SetClass</name>
+						<script>pc.class = matches[2]
+echo ("Character class is now "..pc.class)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^setclass (\w+)</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(displayPC) Display PC Settings</name>
+						<script>display(pc)</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^displayPC$</regex>
+					</Alias>
+					<Alias isActive="yes" isFolder="no">
+						<name>(doquit) Quitting</name>
+						<script>
+if (fSaveCharacter(pc.name)) then
+	raiseEvent ("sysExitEvent")
+	echo (pc.name.." has been saved successfully.\n")
+  
+else
+	echo ("Unable to save " .. pc.name..'\n')
+end
+send ("quit")
+
+</script>
+						<command></command>
+						<packageName></packageName>
+						<regex>^doquit</regex>
+					</Alias>
+				</AliasGroup>
+			</AliasGroup>
+		</AliasGroup>
+	</AliasPackage>
+	<ActionPackage />
+	<ScriptPackage>
+		<ScriptGroup isActive="yes" isFolder="yes">
+			<name>Carrionfields Quix-Start 2019.5.29</name>
+			<packageName></packageName>
+			<script>-------------------------------------------------
+--         Put your Lua functions here.        --
+--                                             --
+-- Note that you can also use external Scripts --
+-------------------------------------------------
+</script>
+			<eventHandlerList />
+			<Script isActive="yes" isFolder="no">
+				<name>Time/Target Update Utilities</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--     Functions and Data structures
+--     used by time-dependent features
+--     like prompts, gauges, and effects
+-------------------------------------------------
+--   fUpdatetime cam be used to help keep track of effects you put on others
+--   fUpdateTime = function (PT) -- PTime = Prompt Time 
+--   fSearchTargetList = function(TargetData)                                        --
+--   fUpdateTargetList = function(TargetData)
+--	 function convert_to_military(curtime)
+--	 function remainingtime(starttime, duration)
+
+
+fUpdateTime = function (PT) -- PTime = Prompt Time
+  local i,j 
+	 i,j = string.find(PT, '&gt;')
+	 if i&gt;0 then 
+		mudtime = string.sub(PT, 1, string.len(PT)-1)
+	 else
+   	mudtime = PT
+	 end
+end
+
+
+fSearchTargetList = function(TargetData)
+	local n = {n=TargetData.name, sc = TargetData.striking, t=TargetData.time}
+	local index = 0
+
+	for i,v in ipairs(targetlist)  do
+		local cur_act = targetlist[i]
+
+     if n.n == cur_act.name then 
+			--Instance found!
+			return i
+			end
+		end
+	--No instance found
+	return 0
+end
+
+
+
+fUpdateTargetList = function(TargetData)
+	if targetlist==nil then 
+		--No targetlist.  Initializing
+		targetlist={} 
+		local myvalue={name="Shortname", striking="StrikingCount", time="Time", effects="Effects"}
+		targetlist[1] = myvalue
+	end
+
+  -- Make the captured name lowercase
+	TargetData.name = string.lower(TargetData.name)
+  
+	--TODO  Need to reduce a phrase (a trapdoor spider) to a keyword
+  local alltext 
+
+	alltext = TargetData.name
+
+ 	for word in string.gmatch(alltext,"%S+") do
+		TargetData.name = word
+	end 
+
+  --Strip extra spaces
+	TargetData.name = string.gsub(TargetData.name, "%s+", "")
+
+   --Check to see if this is a new entry
+	local j=fSearchTargetList(TargetData)
+		if j&gt;0 then 
+
+			--It is an existing entry, to change the contents in targetlist
+			if not (TargetData.striking== nil) then 
+				targetlist[j].striking = TargetData.striking end
+
+			if targetlist[j].time == nil then targetlist[j].time = mudtime end
+
+			--if string.len(TargetData.effects)&gt;1 
+			if TargetData.effects
+				then 
+					targetlist[j].effects = targetlist[j].effects..';'..TargetData.effects
+				else
+					targetlist[j].effects = ''--TargetData.effects
+				end
+		else 
+			--It is a new entry, so insert it into the table
+			if TargetData.striking == nil then TargetData.striking = 0 end
+			if TargetData.time == nil then TargetData.time = mudtime end
+			if TargetData.effects== nil then TargetData.effects = '' end
+			table.insert(targetlist, TargetData)
+		end
+end
+
+
+function convert_to_military(curtime)
+	local military
+	if string.match(curtime, "PM") 
+		then 
+			local temp = string.gsub(curtime, "PM&gt;", "")
+			temp = tonumber(temp)+12
+			military = temp
+		else 
+			local temp = string.gsub(curtime, "AM&gt;", "")
+			military = tonumber(temp) 
+		end
+	return military
+end
+
+
+
+function remainingtime(starttime, duration)
+	local etr = 0
+	local deadline = convert_to_military(starttime) + duration
+	etr = deadline - convert_to_military(mudtime)
+	return etr
+end</script>
+				<eventHandlerList>
+					<string>sysLoadEvent</string>
+				</eventHandlerList>
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>General utilities</name>
+				<packageName></packageName>
+				<script>-------------------------------------------------
+--   function deepcopy(orig)
+--   function firstToUpper(str)                                     --
+--   function string.right(str, characters)
+-------------------------------------------------
+function deepcopy(orig)    --http://lua-users.org/wiki/CopyTable
+    local orig_type = type(orig)
+    local copy
+    if orig_type == 'table' then
+        copy = {}
+        for orig_key, orig_value in next, orig, nil do
+            copy[deepcopy(orig_key)] = deepcopy(orig_value)
+        end
+        setmetatable(copy, deepcopy(getmetatable(orig)))
+    else -- number, string, boolean, etc
+        copy = orig
+    end
+    return copy
+end
+
+
+
+function firstToUpper(str)
+    return (str:gsub("^%l", string.upper))
+end
+
+function string.right(str, characters)
+	str = string.sub(str, (string.len(str)-characters), string.len(str))
+	return str
+end
+
+
+</script>
+				<eventHandlerList />
+			</Script>
+			<Script isActive="yes" isFolder="no">
+				<name>CF Quix-Start Panel</name>
+				<packageName></packageName>
+				<script>BORDER_RIGHT = 800
+BORDER_TOP   = 0
+PANEL_WIDTH  = BORDER_RIGHT
+
+WORLD_MAP = "http://wiki.qhcf.net/index.php?title=WorldMap"
+
+setBorderRight(BORDER_RIGHT)
+right_container = Geyser.Container:new({
+  name = "right_container",    
+  x= -BORDER_RIGHT, y=BORDER_TOP,                  
+  width = PANEL_WIDTH, height="100%",
+})
+
+	Comm_Panel = Geyser.Container:new({
+  			name="CommBox",
+  			x="0%", y="0%",
+  			width="100%", height="26%"},right_container)
+		
+	Status_Panel = Geyser.Container:new({
+  			name="Status_Panel",
+  			x="0%", y="26%",
+  			width="100%", height="10%"},right_container)		
+
+	Map_Panel = Geyser.Container:new({
+				name="Map_Panel",
+  			x="0%", y="36%",
+  			width="100%", height="64%"},right_container)	
+
+status_bar_init()
+settings_box_init()
+comm_box_init()
+qhcf_map_init()
+
+function display_hover_hint(owner_label, s)
+	-- Create hint_label if it does not exist
+	-- position label_above the hovered object
+	-- update this label's message
+	hint_label = owner_label:addChild({
+			name="hint_label",height=30,width=70, layoutDir="TV", flyOut=true, 
+			message=s})
+
+	hint_label:setStyleSheet([[background-color: purple;  border-width: 2px;  
+	border-style: solid;  border-color: blue;  border-radius: 2px;  
+	font-size: 7pt;]])
+	-- 
+end
+
+</script>
+				<eventHandlerList>
+					<string>sysLoadEvent</string>
+				</eventHandlerList>
+				<Script isActive="yes" isFolder="no">
+					<name>Status Bar</name>
+					<packageName></packageName>
+					<script>-------------------------------------------------
+-- StatusBar package:   
+--   status_bar_init()   
+--   status_bar_update (thisbar, curval, maxval)                                        --
+--   status_bar_color status_bar_color (thisbar, bar_percentage_value)
+--		 status_update_tickBar(tick_resetVal)
+-------------------------------------------------
+
+tickCD={
+		max		=60, count	=60,
+			rep1		=60,		rep2		=60,	rep3		=60, rep4		=60,rep5		=60
+		}
+----------------------------------
+--						Statusbox
+----------------------------------
+--   **  	  |			************
+--   **		  |			********
+--   **		  |			**********
+-- tickTimer|     statsvbox
+----------------------------------
+function init_pc()
+	pc = {
+   			name 					= "Bob",
+   			combat_weapon1 	= "sword",
+   			combat_weapon2 	= "dagger",
+   			container 			= "bag",
+   			drink_container = "waterskin",
+   			special_action 	= "trip",
+				food 						= "bread",
+				class 					= "warrior",
+				curhp						=0, 
+				curmana					=0, 
+				curmoves				=0,
+				maxhp						=30,
+				maxmana 				=30,
+				maxmoves				=30,
+				target 				= {},
+				wherelist			= {},
+	      actlist 			= {},
+				preplist			= {}
+				
+			}
+		pc.target = {name="", striking="", time="", effects}
+		pc.wherelist[0] = 0
+		pc.actlist[0] = 0
+
+		AUTOREARM = 'TRUE'
+		
+		return true
+end
+
+
+function status_bar_init()
+	-- Status bars will look wonky until there is pc.data
+	-- They will not properly display data until the bars are
+	-- defined via prompt &amp; score triggers.
+	if pc == nil then 
+			cecho('&lt;gold&gt; Initializing basic generic PC data structure for Status bars.&lt;reset&gt;\n')
+			echo(        ':    Use prompt and score triggers to populate status bars.\n')
+			if init_pc() then 
+				cecho('&lt;gold&gt; Generic PC data structure has been initialized.&lt;reset&gt;\n')
+				echo(        ':    Use \'loadPC\' to load previously saved character settings. \n')
+				echo(        ':    Use prompt and score triggers to populate status bars.\n')
+				end
+			end
+	
+	local StatusBox = Geyser.Label:new({
+  		name="StatusBox",
+  		x="50%", y="0%",
+  		width="50%", height="100%",}, Status_Panel)
+	local StatusTitle = Geyser.Label:new({
+ 		name="StatusTitle",
+  		x="0%", y="8%",
+  		width="100%", height="22%",
+		},StatusBox)
+	 StatusTitle:echo('Status\n', "green", "c")
+
+	tickTimer = Geyser.Label:new(
+		{name ="tickTimer",
+		x="02%", y="1%", width="17%", height="98%"}, StatusBox)
+  tickTimer:setClickCallback("TimerClicked")
+	
+	tickBar = Geyser.Gauge:new({
+		name="tickBar",
+  	x="45%", y="1%",
+  	width="15%", height="70%",
+		orientation = "vertical"
+		}, tickTimer)
+		--tickBar:setClickCallback("TimerClicked")
+ tickDisplay = Geyser.Label:new({
+ 		name ="tickDisplay",
+		x="42%", y="80%", width="20%", height="15%"
+ 		}, tickTimer)
+		tickDisplay:setClickCallback("TimerClicked")
+		
+		
+ --start the timer going
+ tickCD.count = 50
+ tickCD.max = 50
+ status_update_tickBar()
+
+	local statsbox = Geyser.VBox:new({
+  		name="statsbox",
+  		x="20%", y="28%",
+  		width="70%", height="68%",},StatusBox)
+	 
+	 hpbar = Geyser.Gauge:new({
+		name="hpbar",}, statsbox)
+	 manabar = Geyser.Gauge:new({
+		name="manabar",}, statsbox)
+	 movesbar = Geyser.Gauge:new({
+		name="movesbar",}, statsbox)
+				
+	end;-- of function status_bar_init
+	
+	
+	
+
+
+
+function status_bar_color (thisbar, bar_percentage_value)
+  thisbar:setValue(bar_percentage_value, 100)
+	if bar_percentage_value&gt;75 then
+		thisbar.front:setStyleSheet([[background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, 
+				stop: 0 #98f041, stop: 0.1 #8cf029, stop: 0.49 #66cc00, stop: 0.5 #52a300, stop: 1 #66cc00);
+    		border-top: 1px black solid;
+    		border-left: 1px black solid;
+   			border-bottom: 1px black solid;
+    		border-radius: 7;
+    		padding: 3px;]])
+			thisbar.back:setStyleSheet([[background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, 
+				stop: 0 #78bd33, stop: 0.1 #6ebd20, stop: 0.49 #4c9900, stop: 0.5 #387000, stop: 1 #4c9900);
+    		border-width: 1px;
+    		border-color: black;
+    		border-style: solid;
+    		border-radius: 7;
+    		padding: 3px;]])
+
+	else if bar_percentage_value &gt;= 21 then
+			thisbar.front:setStyleSheet([[background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, 
+				stop: 0 #ff0000, stop: 0.1 #ff0000, stop: 0.49 #ff0000, stop: 0.5 #ff0000, stop: 1 #ff0000);
+    		border-top: 1px black solid;
+    		border-left: 1px black solid;
+    		border-bottom: 1px black solid;
+    		border-radius: 7;
+    		padding: 3px;]])
+			thisbar.back:setStyleSheet([[background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, 
+				stop: 0 #e5e500, stop: 0.1 #e5e500, stop: 0.49 #e5e500, stop: 0.5 #e5e500, stop: 1 #e5e500);
+    		border-width: 1px;
+    		border-color: black;
+    		border-style: solid;
+    		border-radius: 7;
+    		padding: 3px;]])
+
+	else if bar_percentage_value &lt; 20 then
+			thisbar.front:setStyleSheet([[background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f04141, stop: 0.1 #ef2929, stop: 0.49 #cc0000, stop: 0.5 #a40000, stop: 1 #cc0000);
+    		border-top: 1px black solid;
+    		border-left: 1px black solid;
+    		border-bottom: 1px black solid;
+    		border-radius: 7;
+    		padding: 3px;]])
+			thisbar.back:setStyleSheet([[background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #bd3333, stop: 0.1 #bd2020, stop: 0.49 #990000, stop: 0.5 #700000, stop: 1 #990000);
+    		border-width: 1px;
+    		border-color: black;
+    		border-style: solid;
+    		border-radius: 7;
+    		padding: 3px;]])
+				end
+		end
+	end
+end -- of function status_bar_color
+
+
+
+-- update the bars
+function status_bar_update(thisbar, curval, maxval)
+		thisbar:setValue(curval, maxval)
+		bar_percentage_value = curval/maxval * 100
+		status_bar_color (thisbar, bar_percentage_value)
+end
+	
+
+function status_update_tickBar(tick_resetVal)
+	--This value is false when called by the one-second timer
+	--     and true (tickCD.count) when the mud time is updated by prompt trigger
+	--             
+
+	local tickResetVal = tick_resetVal or false
+
+	if tickResetVal~=false then
+			-- a trigger observed a tick, so we need to adjust
+			--tickCD.rep5= tickCD.rep4
+			--tickCD.rep4= tickCD.rep3
+			tickCD.rep3= tickCD.rep2
+			tickCD.rep2= tickCD.rep1
+			tickCD.rep1= tickCD.max - tickCD.count
+			--calculate a new average tick named tickCD.max
+			--tickCD.max = round((tickCD.rep5 + tickCD.rep4 + tickCD.rep3 + tickCD.rep2 + tickCD.rep1)/5)
+			tickCD.max = round((tickCD.rep3 + tickCD.rep2 + tickCD.rep1)/3)
+			--now reset the count &amp; display under the timer		
+			tickDisplay:echo(tickCD.max..'\n', "green", "c")
+			tickCD.count = tickCD.max
+		end
+	--gauge = tickBar
+	tickCD.count = tickCD.count - 1
+	
+	tickBar:setValue(tickCD.count, tickCD.max)
+	status_bar_color(tickBar, tickCD.count/tickCD.max *100)
+	end
+
+	
+
+function TimerClicked()
+	tickCD.count = 50
+	tickCD.max = 50
+
+ 	if isActive("timer_second", "timer") ~= 0 then 
+			disableTimer("timer_second") 
+			echo("Tick countdown disabled\n")
+		else 
+			enableTimer("timer_second")
+			echo("Tick countdown enabled\n") 
+		end
+end
+	
+	
+</script>
+					<eventHandlerList>
+						<string>sysLoadEvent</string>
+					</eventHandlerList>
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Settings</name>
+					<packageName></packageName>
+					<script>----------------------------------
+--				settingsbox
+--------------------------------------
+--       	  |	Defaults    |
+--   CF  	  |	            |
+--     		  |	            |
+-- imagebox | defaultsbox | togglesbox
+--------------------------------------
+
+Toggle = {
+		disarm=true, 
+		throwdown=true
+		}
+
+function settings_box_init()
+	local settingsbox = Geyser.Label:new({
+  	name="settingsbox",
+  	x="0%", y="0%",
+  	width="50%", height="100%",},Status_Panel)
+
+	imagebox = Geyser.Label:new({
+		name="imagebox",
+		x="0%", y="1%", width="23%", height="98%"}, settingsbox)
+	
+	-- update location to actual image location on your computer
+	-- default image =  /.../cf_pics/cf_knight.png	
+	local imagedir = getMudletHomeDir()..'/cf_pics/cf_knight.png'
+	
+	imagebox:setBackgroundImage([[imagedir]]) 
+	
+	imagebox:setStyleSheet(
+			"border-image: url("..imagedir..");"
+		)
+	
+	
+	
+	--Default Target, Default attack, Default Container, 
+	--Default Food, Default Drink...
+	defaultsbox = Geyser.Label:new(
+		{name ="defaultsbox",
+		x="24%", y="0%", width="35%", height="100%"}, settingsbox)
+	
+		currtargbox = Geyser.Label:new(
+			{name ="currtargbox",
+			x="2%", y="13%", width="90%", height="15%"}, defaultsbox)
+			currtargbox:echo('Target=\n', 'green', 'l')
+		
+		currspattbox = Geyser.Label:new(
+			{name ="currspattbox",
+			x="2%", y="30%", width="90%", height="15"}, defaultsbox)
+			currspattbox:echo('SpAtt =\n', 'green', 'l')
+	
+		currcontainerbox = Geyser.Label:new(
+			{name ="currcontainerbox",
+			x="2%", y="47%", width="90%", height="15"}, defaultsbox)
+			currcontainerbox:echo('Contr =\n', 'green', 'l')
+	
+		currfoodbox = Geyser.Label:new(
+			{name ="currfoodbox",
+			x="2%", y="63%", width="90%", height="15"}, defaultsbox)
+			currfoodbox:echo("Food    =\n", 'green', 'l')
+
+		currdrkbox = Geyser.Label:new(
+			{name ="currdrkbox",
+			x="2%", y="79%", width="90%", height="15"}, defaultsbox)
+			currdrkbox:echo("Drink  =\n", 'green', 'l')
+
+			local defaultlabel= Geyser.Label:new(
+				{name ="defaultlabel",
+				x="2%", y="0%", width="100%", height="14%"}, defaultsbox)
+				defaultlabel:echo("Defaults", 'green', 'c')
+
+
+-- Initialize Toggles 
+	togglesbox = Geyser.Label:new(
+		{name ="togglesbox",
+		x="60%", y="0%", width="40%", height="100%"}, settingsbox)
+
+		local disarmlabel= Geyser.Label:new(
+				{name ="disarmlabel",
+				x="2%", y="15%", width="70%", height="14%"}, togglesbox)
+				disarmlabel:echo("NoDisarm", 'SeaGreen', 'l')
+			
+			disarmImage= Geyser.Label:new({
+				name="disarmImage",
+				x="75%", y="15%", width="15%", height="15%"}, togglesbox)
+
+
+			-- update location to actual image location on your computer
+		local check =	getMudletHomeDir()..'/cf_pics/Checkbox_ticked.png'
+			disarmImage:setBackgroundImage([[check]]) 
+			disarmImage:setStyleSheet(
+				"border-image: url("..check..");")
+			disarmImage:setClickCallback("disarmImageonclick")
+			Toggle.disarm = true
+			
+		local throwdownlabel= Geyser.Label:new(
+				{name ="throwdownlabel",
+				x="2%", y="35%", width="70%", height="14%"}, togglesbox)
+				throwdownlabel:echo("ThrowDown", 'SeaGreen', 'l')
+			
+			throwdownImage= Geyser.Label:new({
+				name="throwdownImage",
+				x="75%", y="35%", width="15%", height="15%"}, togglesbox)
+			-- update location to actual image location on your computer
+			--check =	getMudletHomeDir()..'/cf_pics/Checkbox_ticked.png'
+			throwdownImage:setBackgroundImage([[check]]) 
+			throwdownImage:setStyleSheet(
+				"border-image: url("..check..");")
+			throwdownImage:setClickCallback("throwdowImageonclick")
+			Toggle.throwdown = true
+end -- init_settings_box()
+	
+	
+function disarmImageonclick()
+	local img
+	if Toggle.disarm then
+	 img	= getMudletHomeDir()..'/cf_pics/Checkbox_unticked.png'
+	 Toggle.disarm = false
+	 echo('You will no longer automatically pick up disarmed weapons.\n')
+	else
+		img = getMudletHomeDir()..'/cf_pics/Checkbox_ticked.png' 
+		Toggle.disarm = true
+		echo('You will now automatically pick up disarmed weapons.\n')
+	end
+	disarmImage:setStyleSheet(
+				"border-image: url("..img..");")
+end
+
+
+
+function throwdowImageonclick()
+	local img
+	if Toggle.throwdown then
+	 img	= getMudletHomeDir()..'/cf_pics/Checkbox_unticked.png'
+	 Toggle.throwdown = false
+	 echo('You will no longer pick up disarded weapons.\n')
+	else
+		img = getMudletHomeDir()..'/cf_pics/Checkbox_ticked.png' 
+		Toggle.throwdown = true
+		echo('You will now pick up disarded weapons.\n')
+	end
+	throwdownImage:setStyleSheet(
+				"border-image: url("..img..");")
+end
+
+function settings_setTarget(name)
+	currtargbox:show()
+	currtargbox:echo('Target= '..name..'', 'green', 'l')
+end
+
+function settings_setSpecialAttack(name)
+	currspattbox:echo('SpAtt = '..name..'\n', 'green', 'l')
+end
+
+function settings_setFood(name)
+	currfoodbox:echo("Food   = "..name.."\n", 'green', 'l')
+end
+
+function settings_setBag(name)
+  currcontainerbox:echo('Contr = '..name..'\n', 'green', 'l')
+end
+
+
+</script>
+					<eventHandlerList>
+						<string>sysLoadEvent</string>
+					</eventHandlerList>
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Communications</name>
+					<packageName></packageName>
+					<script>-------------------------------------------------
+-- function comm_box_init()
+--       :Creates active labels to filter communication channels                                     --
+-- 			 * called by initCommBox &amp; the catchall initHUD
+-------------------------------------------------
+Comm = {all, loc, tell, cb}
+
+function comm_box_init()
+
+	 local CommBoxTitle = Geyser.Label:new({
+ 		name="Communications",
+  			x=0, y=0,width="100%", height="13%"},Comm_Panel)
+		CommBoxTitle:echo('Communications\n', "LightBlue", "c")
+
+	 sortChats= Geyser.HBox:new({
+	 	x=0, y="13%", width="100%",height="13%"},Comm_Panel)
+
+	 Comm.all = Geyser.Label:new(
+	 {name="Comm.all"}, sortChats)
+	 
+	 Comm.loc = Geyser.Label:new(
+	 {name="Comm.loc"}, sortChats)
+	 
+	 Comm.tell = Geyser.Label:new(
+	 {name="Comm.tell"}, sortChats)
+	 
+	 Comm.cb = Geyser.Label:new(
+	 {name="Comm.cb"}, sortChats)
+	 
+	 Comm.all:echo('All\n', 'green', 'c')
+	 Comm.loc:echo('Local\n', 'red', 'c')
+	 Comm.tell:echo('Tells\n', 'red', 'c')
+	 Comm.cb:echo('CB\n', 'red', 'c')
+	 			
+	 Comm.all:setClickCallback("Comm.tabclicked","Comm.displayall")
+	 Comm.loc:setClickCallback("Comm.tabclicked","Comm.displayloc")
+	 Comm.tell:setClickCallback("Comm.tabclicked","Comm.displaytell")		
+	 Comm.cb:setClickCallback("Comm.tabclicked","Comm.displaycb")
+
+	 consolebox = Geyser.Container:new({
+	 		name="consolebox",
+			x="0%", y="26%",width="100%", height="75%",
+			autoWrap = true,
+			color="black",
+			scrollBar = true,
+			fontSize = 9,
+			
+			},Comm_Panel)
+	 Comm.displayloc=Geyser.MiniConsole:new({
+			name="Comm.displayloc",
+			x="0%", y="0%",width="100%", height="100%",
+			autoWrap = true,
+			color="black",
+			scrollBar = true,
+			fontSize = 9,
+			},consolebox)
+	Comm.displaytell=Geyser.MiniConsole:new({
+			name="Comm.displaytell",
+			x="0%", y="0%",width="100%", height="100%",
+			autoWrap = true,
+			color="black",
+			scrollBar = true,
+			fontSize = 9,
+			},consolebox)
+		Comm.displaycb=Geyser.MiniConsole:new({
+			name="Comm.displaycb",
+			x="0%", y="0%",width="100%", height="100%",
+			autoWrap = true,
+			color="black",
+			scrollBar = true,
+			fontSize = 9,},consolebox)
+	 Comm.displayall=Geyser.MiniConsole:new({
+			name="Comm.displayall",
+			x="0%", y="0%",width="100%", height="100%",
+			autoWrap = true,
+			color="black",
+			scrollBar = true,
+			fontSize = 9,
+			},consolebox)
+
+	 end;-- of function comm_box_init
+
+function Comm.tabclicked(name)
+	local displays = {
+		["Comm.displaycb"]  = Comm.displaycb,
+		["Comm.displayloc"] = Comm.displayloc,
+		["Comm.displaytell"]= Comm.displaytell, 
+		["Comm.displayall"] = Comm.displayall
+		}
+	local tabs = {
+		["Comm.displaycb"]  = Comm.cb,
+		["Comm.displayloc"] = Comm.loc,
+		["Comm.displaytell"]= Comm.tell, 
+		["Comm.displayall"] = Comm.all
+		}
+		local caption = {
+		["Comm.displaycb"]  = "CB",
+		["Comm.displayloc"] = "Local",
+		["Comm.displaytell"]= "Tells", 
+		["Comm.displayall"] = "All"
+		}
+	for i,v in pairs(displays) do
+		if i == name then 
+			displays[i]:show()	
+			tabs[i]:echo(caption[i], 'green', 'c')
+		else
+			displays[i]:hide()
+			tabs[i]:echo(caption[i], 'red', 'c')
+			end  --if
+		end  --for
+	
+	
+	
+end
+
+
+</script>
+					<eventHandlerList>
+						<string>sysLoadEvent</string>
+					</eventHandlerList>
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>Auto Prompt Parsing</name>
+					<packageName></packageName>
+					<script>-------------------------------------------------
+--   function getRegex(prompt)
+--
+--   
+-- Trigger captures the "prompt ?"  (see help prompt on Carrionfields)
+-- and this function parses output related to your defined prompt.
+-- Copy/paste the regex output into your own prompt trigger.
+
+-------------------------------------------------
+function getRegex(prompt)
+	local regex = ''          -- return the capture prompt to edit into trigger
+	local regex_count = 0     -- counter for the number of captured items in prompt
+	flag = false 
+
+	for i = 1, #prompt do
+    local c = prompt:sub(i,i)
+    if c == '%' then
+			regex= regex..'(\\'
+			flag = true
+		else
+			if not flag then
+				if (c=='(' or c ==')' 
+					or c =='&lt;' or c=='&gt;') then c = '\\'..c end
+				
+				regex = regex..c
+			else --special character
+				local var = string.sub(PROMPT_LOOKUP_TABLE[c],1,1)	
+				-- check for special case variable definitions--	
+				if c == 'P' then 
+					var = "d+)\\.(\\d"
+					regex = regex..var..'+)%'
+					elseif c == 'T' then 
+					var = "d+)(AM|PM)"
+					regex = regex..var
+					else
+					--- regular variable definitions
+						regex = regex..var..'+)'
+					end
+				flag = false
+				end
+			end	
+	end	
+	return regex
+end
+
+PROMPT_LOOKUP_TABLE = {
+ 	["h"]= "dhp",			["H"] = "dmaxhp",
+	["m"]= "dmana",		["M"] = "dmaxmana",
+	["v"]= "dmove",		["V"] = "dmaxmove",
+	["e"]= "dhp%",
+	["f"]= "dmana%",
+	["g"]= "dmove%",
+	
+	
+	["x"]= "dexp",
+	["X"]= "dtnl",
+	["a"]= "dage",
+	["A"]= "dhours",	
+
+	["n"]= "wmoon",
+	["d"]= "wbeer",
+	["w"]= "weather",		["W"]= "wterrain",
+	["I"]= "winout",
+	["p"]= "wpos",
+
+	-- SPECIAL CASES
+	["t"]= "dsyst",
+	["T"]= "dtime",
+	["P"]= "dSPECIAL CASE"   
+	}
+
+--Your current prompt is:
+--%W &lt;%hhp %mm %vmv %Xtnl (%P) %T&gt;
+--help prompt
+--   Variables allowed within  are:
+--   %h Current hit points        %H Max hit points
+--   %m Current mana              %M Max mana
+--   %v Current movement          %V Max movement
+--   %e % of hit points           %f % of mana
+--   %g % of movement             %P Level Progress (25.33%)
+--   %x Current experience        %X Experience to next level
+--   %t System time               %T Game time (8 AM)
+--   %a Current age               %A Current hours
+--   %n Phase of the moon         %I Indoor/Outdoor
+--   %W Wilderness/Civilized      %p Position
+--   %d Drunk/Tipsy/Sober         %w Weather
+--   %- CR+LF
+</script>
+					<eventHandlerList />
+				</Script>
+				<Script isActive="yes" isFolder="no">
+					<name>QHCF Map Display</name>
+					<packageName></packageName>
+					<script>-------------------------------------------------
+--       QHCF Map Display                      --
+--                                             --
+--   Downloads and displays interactive ASCII  --
+--   maps from QHCF.net                        --
+-------------------------------------------------
+
+--  function qhcf_map_init()                  : creates qhcf_map_panel
+--  function map_write(map_file)              : writing map to display
+--  function extract_map(map_file)						: returns map data from downloaded html file
+--  function parseprint_link(s)   						: returns parsed hyperlink data
+--  function map_reset_onclick() 							: clears map display &amp; reloads Worldmap
+--  function downloaded_file(saveto, url)			: crude html-map download tool
+
+
+function qhcf_map_init()
+			--  function creating map display window and toolbar
+		 map_toolbar = Geyser.Label:new({
+		   name="map_toolbar",
+			 x="0%", y="0%",width="100%", height="10%"
+		   }, Map_Panel)
+		 
+		 		map_reset_button= Geyser.Label:new({
+					name='map_reset_button',
+					x='1%', y='0%',height='100%', width='6%',
+					nestable=true,
+					}, map_toolbar)
+					
+					map_reset_button:setStyleSheet([[
+							QLabel{ border-radius: 4px; }
+  						QLabel::hover{
+    							background: rgba(0,0,0,0%);
+    							border: 4px double lightblue;
+    							border-radius: 4px; 
+  							}
+							]])
+					--assignToolTip(map_reset_button, "Oh shit!")
+
+					map_reset_button:echo('Map&lt;br&gt;Reset', "green", "c")
+					map_reset_button:setClickCallback('map_reset_onclick()')	 
+
+		 		map_enlarge_button= Geyser.Label:new({
+					name='map_enlarge_button',
+					x='7%', y='0%',height='50%', width='2%'
+					}, map_toolbar)
+					map_enlarge_button:echo('+\n', "green", "c")
+					map_enlarge_button:setClickCallback('map_enlarge_onclick()')
+
+		 		map_shrink_button= Geyser.Label:new({
+					name='map_shrink_button',
+					x='7%', y='50%',height='50%', width='2%'
+					}, map_toolbar)
+					map_shrink_button:echo('-\n', "green", "c")
+					map_shrink_button:setClickCallback('map_shrink_onclick()')
+
+		 qhcf_map_panel=Geyser.MiniConsole:new({
+			name="qhcf_map_panel",
+			x="0%", y="10%",width="100%", height="90%",
+			autoWrap = false,
+			color="black",
+			scrollBar = true,
+			fontSize = 6,
+			},Map_Panel)
+			
+			-- Query: do we want to automatically load the World Map?
+			map_reset_onclick()
+end
+
+
+
+function parseprint_link(s)
+				local a_start, a_end
+				local a_link={f = '', href='', title='',show=''}
+				local lhr  = string.len('href="')
+				local lt   = string.len('title="')
+				local temp = s
+				
+				--find href
+				a_start = s:find('href="')
+				a_end = s:find('"',a_start+lhr+1)
+				a_link.href = temp:sub(a_start+lhr,a_end-1)
+				
+				--find title
+				a_start = s:find('title="')+1
+				a_end = s:find('"',a_start+lt+1)
+				a_link.title = temp:sub(a_start+lhr,a_end-1)
+			
+				--find show		
+				a_start = s:find('"&gt;')
+				a_link.show = temp:sub(a_start+2)
+				
+				--create a_link.f  (filename)
+				a_start = s:find('?title=')+1--+ string.len('?title=')
+				a_link.f = getMudletHomeDir()..'/QHCFmaps/'..string.sub(a_link.href,a_start)..'.html'
+		
+				
+				return a_link
+end
+
+
+
+--  function writing to map display (regular text &amp; clickable hyperlinks)
+function map_write(map_file)
+		local map ={}
+		local a_link={f= '', href='', title='',show=''}
+
+		--&lt;pre&gt;   map data  &lt;/pre&gt;
+		--&lt;a href="link" title="title"&gt;displayed_title &lt;/a&gt;
+
+		qhcf_map_panel:clear()
+		--Map_Full:clear()
+		
+		--parse the map file for the map  (between &lt;pre&gt; &amp; &lt;/pre&gt;)
+		map = extract_map(map_file)	
+		
+		for k,v in pairs(map) do
+			local temp = v
+			if v:find('&lt;a ')~=nil	then 
+			
+				-- v = prelink_str + link + rest_of_string (which may contain other links)
+				while temp:find('&lt;a ')~=nil	do
+					local a_start, a_end
+					local prelink_string, rest_of_string
+					
+					--find the link
+					a_start = temp:find('&lt;a ')
+					a_end = temp:find('&lt;/a&gt;')-1
+					
+					prelink_string = temp:sub(0,a_start-1)
+					
+					--rest_of_string = temp:sub( (a_end+string.len('&lt;/a&gt;')+1),-1 )
+					rest_of_string = temp:sub( (a_end+string.len('&lt;/a&gt;')+1),-1 )
+					
+					--trim temp of begin string
+					temp= temp:sub(a_start+3, a_end)
+					
+					a_link = parseprint_link(temp)
+					
+				if string.len(prelink_string)&gt;0 then 
+					--Map_Full:echo(prelink_string) 
+					qhcf_map_panel:echo(prelink_string) 
+					end
+				
+				-- create a link that will, when clicked, download the map file (and display it)
+				echoLink("qhcf_map_panel",a_link.show, [[downloaded_file(]]..[[']]..a_link.f..[[',']]..a_link.href..[[')]], a_link.href)
+				
+				
+					-- now trim off the link from temp
+					temp = rest_of_string
+				end
+				--if string.len(temp)&gt;0 then Map_Full:echo(temp..'\n') end
+				--Map_Full:echo(temp..'\n')
+				qhcf_map_panel:echo(temp..'\n')
+			else
+				--no link, so echo the unaltered line
+				--Map_Full:echo(v)
+				qhcf_map_panel:echo(temp..'\n')
+			end
+		end
+end
+
+
+
+function extract_map(map_file)
+local lines = {}
+		local flag_map=false
+		local map ={}
+		
+  	for ln in io.lines(map_file) do 
+  		lines[#lines + 1] = ln
+  		if ln:find('&lt;pre&gt;')~=nil	then 
+					flag_map = true 
+					--Trim off &lt;pre&gt; &amp; &lt;/pre&gt;
+					local a_start, a_end	
+					a_start = ln:find('&lt;pre&gt;')+string.len('&lt;pre&gt;')
+					a_end = string.len(ln)-a_start
+					ln = ln:sub(a_start)
+					end
+			if ln:find('&lt;/pre&gt;')~=nil then 
+					flag_map = false 
+					--Trim off &lt;pre&gt; &amp; &lt;/pre&gt;
+					local a_start, a_end	
+					a_start = 0
+					a_end = ln:find('&lt;/pre&gt;')-1
+					ln = ln:sub(a_start)
+					end
+			if flag_map then map[#map+1] = ln end
+  	end
+	return map
+end
+
+
+-- create a function to parse the downloaded webpage and display a result
+function downloaded_file(saveto, url)
+  if downloadFile(saveto, url) then
+		cecho('&lt;gold&gt;Successfully retrieved map from '..url..'&lt;reset&gt;\n')
+		map_write(saveto)
+	else
+		cecho('&lt;red&gt;Error fetching map'..url..'&lt;reset&gt;\n')
+	end	
+end
+-- register our function to run on the event that something was downloaded
+registerAnonymousEventHandler("sysDownloadDone", "downloaded_file")
+
+function map_reset_onclick()
+  local saveto = getMudletHomeDir()..'/QHCFmaps/Worldmap.html'
+	cecho('&lt;gold&gt;\nMap Reset&lt;reset&gt;\n')
+	qhcf_map_panel:clear()
+	downloaded_file(saveto,WORLD_MAP)
+end
+
+function map_enlarge_onclick()
+	local size = qhcf_map_panel.fontSize +1
+	map_refresh(size)
+end
+
+function map_shrink_onclick()
+	local size = qhcf_map_panel.fontSize -1
+	map_refresh(size)
+end
+
+function map_refresh(size)
+		qhcf_map_panel=Geyser.MiniConsole:new({
+			name="qhcf_map_panel",
+			x="0%", y="10%",width="100%", height="90%",
+			autoWrap = false,
+			color="black",
+			scrollBar = true,
+			fontSize = size,
+			},Map_Panel)
+		echo('Map zoom: '..qhcf_map_panel.fontSize ..'\n')
+end</script>
+					<eventHandlerList />
+				</Script>
+			</Script>
+		</ScriptGroup>
+	</ScriptPackage>
+	<KeyPackage />
+	<VariablePackage>
+		<HiddenVariables />
+	</VariablePackage>
+</MudletPackage>
