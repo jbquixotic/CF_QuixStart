@@ -164,11 +164,11 @@ end
 					<name>Score--&gt;Statusbar</name>
 					<script>
 --	score
---	Isthrela the Legend of the Battlefield
+--	Bob the Legend of the Battlefield
 --	-------------------------------------------------------------------------------
---	Level    : 51           Sex      : female       Race     : dark-elf    
---	Ethos    : Chaotic      Align    : Evil         Class    : warrior     
---	Practices: 20           Trains   : 1            Hometown : Jade Mountains
+--	Level    : 51           Sex      : male         Race     : elf    
+--	Ethos    : Chaotic      Align    : z         	Class    : warrior     
+--	Practices: 20           Trains   : 1 Good       Hometown : Galadon
 --	Exp      : 562743       To Level : 20557        Sphere   : Peace
 --	Age      : mature, 252 years old (197 hours)
 --	Hit Point: 588  /1015   Mana     : 631  /631    Move     : 981  /981  
@@ -217,28 +217,7 @@ manabar:setValue(pc.curmana,pc.maxmana, "&lt;b&gt;M&lt;/b&gt;")
 movesbar:setValue(pc.curmoves,pc.maxmoves, "&lt;b&gt;MV&lt;/b&gt;")
 		
 
-
---	score
---	Isthrela the Legend of the Battlefield
---	-------------------------------------------------------------------------------
---	Level    : 51           Sex      : female       Race     : dark-elf    
---	Ethos    : Chaotic      Align    : Evil         Class    : warrior     
---	Practices: 20           Trains   : 1            Hometown : Jade Mountains
---	Exp      : 562743       To Level : 20557        Sphere   : Peace
---	Age      : mature, 252 years old (197 hours)
---	Hit Point: 588  /1015   Mana     : 631  /631    Move     : 981  /981  
---	Str      : 18(18+9)     Int      : 22(24+1)     Wis      : 20(21+3)
---	Dex      : 24(24+1)     Con      : 14(16+1)     Chr      : 16(14)  
---	Carry #  :  37/39       Weight   : 228 lb 1 oz (Max 327 lbs)
---	Gold     : 0            Silver   : 0            Copper   : 0           
---	Wimpy    :  350 hp      Morale   : Moderate     Position : Sleeping
---	Hitroll  : 19           Damroll  : 46          
---	AC pierce : -80   Superbly armored      AC bash   : -52   Heavily armored       
---	AC slash  : -80   Superbly armored      AC magic  : -38   Very well armored     
---	AC element: -85   Superbly armored      
---	vs Spell    : -13  Somewhat protected  vs Paralysis: -11  Somewhat protected  
---	vs Breath   : -12  Somewhat protected  vs Mental   : 0    Not protected       
--------------------------------------------------------------------------------</script>
+</script>
 						<triggerType>0</triggerType>
 						<conditonLineDelta>0</conditonLineDelta>
 						<mStayOpen>0</mStayOpen>

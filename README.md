@@ -1,7 +1,7 @@
 # CF_QuixStart
 
    This Lua package creates a graphic user interface for Mudlet tailored
-   for use on the Carrionfields Mud.
+   for use on the Carrionfields Mud.  Checkout Mudlet at www.mudlet.org
 
 ## FILES AND FOLDERS
 - cf_quixstart-YYYY-MM-DD.xml              : current UI package
