@@ -9,6 +9,9 @@
                                   in the profile folder
 
 ## Change Log
+### 6 June 2019
+- fixed bug to add support for negative values in autoregex prompt creator
+
 ### 4 June 2019
 - autoload UI
 - loads WorldMap on UI startup
